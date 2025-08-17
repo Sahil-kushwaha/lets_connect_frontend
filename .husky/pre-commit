@@ -1,0 +1,5 @@
+
+#npm run lint
+npx prettier --write .
+npx eslint --fix .
+git add .
