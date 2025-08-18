@@ -1,11 +1,19 @@
-// import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Body from "./pages/Body";
+import LoginPage from "./pages/LoginPage";
+import SingnUpPage from "./pages/SingnUpPage";
 
 function App() {
   return (
     <>
-      <div>
-        <p className="text-red-500">hello</p>
-      </div>
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" element={<Body />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="singup" element={<SingnUpPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
