@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
+import { toast } from "react-toastify";
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const NavBar = () => {
   };
   // logout handler
   const handleLogout = async () => {
+    console.log("logout");
     try {
       const res = await axios.post(
         BASE_URL + "/api/v1/auth/logout",
@@ -22,9 +24,11 @@ const NavBar = () => {
         { withCredentials: true }
       );
       dispatch(removeUser());
+      toast.success("Logout Successfully");
       navigate("/login", { replacee: true });
       console.log(res.data.message);
     } catch (error) {
+      toast.error(error.message);
       console.error(error);
     }
   };
@@ -33,7 +37,7 @@ const NavBar = () => {
       <div>
         <div className="navbar bg-base-200 shadow-sm">
           <div className="flex-1">
-            <Link to={"/"} className="btn btn-ghost text-xl">
+            <Link to={user ? "/" : "/login"} className="btn btn-ghost text-xl">
               Let's Connect
             </Link>
           </div>
@@ -68,24 +72,9 @@ const NavBar = () => {
                       <a>Settings</a>
                     </li>
                     <li>
-                      <Link onClick={handleLogout}>Logout</Link>
-                    </li>
-                  </div>
-                )}
-                {!user && (
-                  <div>
-                    <li>
-                      <Link to="/" className="justify-between">
-                        Home
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                      <Link to="/signup" onClick={handleLogout}>
-                        Signup
-                      </Link>
+                      <div aria-label="logout button" onClick={handleLogout}>
+                        Logout
+                      </div>
                     </li>
                   </div>
                 )}

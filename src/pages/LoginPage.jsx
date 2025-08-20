@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { BASE_URL } from "../utils/constant";
 import { useSelector } from "react-redux";
-
+import { toast } from "react-toastify";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,11 +30,13 @@ function LoginPage() {
       );
 
       if (res.data?.data) dispatch(addUser(res.data.data));
+      toast.success("Login Successfully");
 
       navigate("/", { replace: true });
     } catch (error) {
       if (error.response) {
         const message = error.response.data?.message;
+        toast.warn(message);
         setError(message);
       }
     }
@@ -47,7 +49,6 @@ function LoginPage() {
           <h2 className="text-center text-2xl font-bold text-blue-100">
             Login
           </h2>
-          {error && <p className="text-red-500 my-2 text-center">{error}</p>}
           <label className="input validator">
             <svg
               className="h-[1em] opacity-50"
@@ -110,6 +111,9 @@ function LoginPage() {
             At least one lowercase letter <br />
             At least one uppercase letter
           </p> */}
+          {error && (
+            <p className="text-red-500 my-2 text-center">ERROR::{error}</p>
+          )}
           <div className="card-actions justify-center">
             <button className="btn btn-primary" onClick={handleSubmit}>
               Login
