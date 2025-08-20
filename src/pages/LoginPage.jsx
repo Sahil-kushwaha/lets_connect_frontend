@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { BASE_URL } from "../utils/constant";
+import { useSelector } from "react-redux";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,10 @@ function LoginPage() {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
+  // if user is logged in and try to access login page again (prevent it)
+  if (user) return <Navigate to={"/"} />;
 
   const handleSubmit = async () => {
     try {
