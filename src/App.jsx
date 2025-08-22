@@ -17,11 +17,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SingnUpPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<ErrorPage />} />
           </Route>
-          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer />
+      <ToastContainer position="top-center" autoClose={2000} />
     </>
   );
 }

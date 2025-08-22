@@ -12,7 +12,7 @@ import Loader from "../components/Loader";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   console.log("body render");
   // when home page at / rendered this fun called first
@@ -21,12 +21,17 @@ const Body = () => {
       const res = await axios.get(BASE_URL + "/api/v1/profile/view", {
         withCredentials: true,
       });
-      setLoading(true);
+      setLoading(false);
       dispatch(addUser(res.data?.data));
     } catch (error) {
       console.error(error);
       if (error.status === 401) {
         navigate("/login");
+      } else {
+        navigate("/error-page", {
+          state: { message: error?.message },
+          replace: true,
+        });
       }
       setLoading(false);
     }
