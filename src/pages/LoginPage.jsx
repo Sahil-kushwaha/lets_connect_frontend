@@ -30,6 +30,7 @@ function LoginPage() {
       );
 
       if (res.data?.data) dispatch(addUser(res.data.data));
+
       toast.success("Login Successfully");
 
       navigate("/", { replace: true });

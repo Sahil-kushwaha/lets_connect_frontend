@@ -8,6 +8,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 import { toast } from "react-toastify";
 const NavBar = () => {
+  console.log("nevrender");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
@@ -75,6 +76,18 @@ const NavBar = () => {
                       <div aria-label="logout button" onClick={handleLogout}>
                         Logout
                       </div>
+                    </li>
+                  </div>
+                )}
+                {!user && (
+                  <div>
+                    <li>
+                      <Link to="/login" className="justify-between">
+                        Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={"/signup"}>Singup</Link>
                     </li>
                   </div>
                 )}

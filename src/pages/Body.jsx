@@ -6,31 +6,39 @@ import { BASE_URL } from "../utils/constant";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loader from "../components/Loader";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(true);
 
+  console.log("body render");
   // when home page at / rendered this fun called first
   const fetchLoggedInUser = async () => {
     try {
       const res = await axios.get(BASE_URL + "/api/v1/profile/view", {
         withCredentials: true,
       });
+      setLoading(true);
       dispatch(addUser(res.data?.data));
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error.status === 401) {
         navigate("/login");
       }
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchLoggedInUser();
   }, []);
-  return (
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <main>
       <NavBar />
       <Outlet />
