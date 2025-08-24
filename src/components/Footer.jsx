@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom"
 
+import { Link } from "react-router-dom
 const Footer = () => {
   return (
     <footer className="bg-base-300 relative bottom-0 text-gray-400 p-8 sm:p-12 mt-auto rounded-t-xl">
@@ -7,7 +7,9 @@ const Footer = () => {
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <h2 className="text-xl font-bold text-white mb-2">Let's Connect</h2>
           <p className="text-sm leading-relaxed max-w-md">
-           Welcome to the hub where developers meet. We believe the best code is built together. Find your next collaborator, share knowledge, and grow your career with a community that gets it. Ready to connect?
+            Welcome to the hub where developers meet. We believe the best code
+            is built together. Find your next collaborator, share knowledge, and
+            grow your career with a community that gets it. Ready to connect?
           </p>
           {/* A simple divider for visual separation */}
           <div className="h-px bg-gray-700 w-16 my-4 md:my-6"></div>
