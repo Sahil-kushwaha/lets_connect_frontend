@@ -12,7 +12,7 @@ import Loader from "../components/Loader";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   console.log("body render");
   // when home page at / rendered this fun called first
@@ -44,11 +44,13 @@ const Body = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <main>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
-      <Outlet />
+      <main className="flex-grow relative">
+        <Outlet />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 };
 

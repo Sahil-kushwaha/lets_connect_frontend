@@ -34,65 +34,57 @@ const NavBar = () => {
     }
   };
   return (
-    <nav>
-      <div>
-        <div className="navbar bg-base-200 shadow-sm">
-          <div className="flex-1">
-            <Link to={user ? "/" : "/login"} className="btn btn-ghost text-xl">
+    <nav className=" sticky top-0 z-50 w-full">
+      <div className="navbar bg-base-300 shadow-sm w-full">
+        <div className="flex-1">
+          <Link to={user ? "/" : "/login"} className="btn btn-ghost text-xl">
+            <span className="bg-linear-to-b from-50% from-neutral-200  to-neutral-700 text-transparent bg-clip-text">
               Let's Connect
-            </Link>
-          </div>
-          {user && <span>{"Welcome, " + captalizeFirst(user.firstName)}</span>}
-          <div className="flex gap-2">
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar mx-4"
-              >
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="profile logo"
-                    src={user ? user.avatarUrl : profile_icon}
-                  />
-                </div>
+            </span>
+          </Link>
+        </div>
+        {user && (
+          <span className="bg-linear-to-b from-60% from-blue-400  to-neutral-700 text-transparent bg-clip-text">
+            {"Welcome, " + captalizeFirst(user.firstName)}
+          </span>
+        )}
+        <div className="flex gap-2">
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar mx-4"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="profile logo"
+                  src={user ? user.avatarUrl : profile_icon}
+                />
               </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-              >
-                {user && (
-                  <div>
-                    <li>
-                      <Link to="/profile" className="justify-between">
-                        Profile
-                        <span className="badge">New</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <a>Settings</a>
-                    </li>
-                    <li>
-                      <div aria-label="logout button" onClick={handleLogout}>
-                        Logout
-                      </div>
-                    </li>
-                  </div>
-                )}
-                {!user && (
-                  <div>
-                    <li>
-                      <Link to="/login" className="justify-between">
-                        Login
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to={"/signup"}>Singup</Link>
-                    </li>
-                  </div>
-                )}
-              </ul>
             </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              {user && (
+                <div>
+                  <li>
+                    <Link to="/profile" className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <div aria-label="logout button" onClick={handleLogout}>
+                      Logout
+                    </div>
+                  </li>
+                </div>
+              )}
+            </ul>
           </div>
         </div>
       </div>
