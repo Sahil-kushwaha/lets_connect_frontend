@@ -21,7 +21,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-      <ToastContainer position="top-center" autoClose={2000} />
+      <ToastContainer position="top-center" />
     </>
   );
 }
