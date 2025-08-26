@@ -5,10 +5,9 @@ const Modal = ({
   handleAvatarSelect,
   handleAvatarSubmit,
   selectedAvatarFile,
-  uploadingAvatarProgress,
 }) => {
   return (
-    <div className="absolute inset-0 min-w-full min-h-full backdrop-blur-xl p-0 m-0 z-50 flex justify-center pt-10 overflow-hidden">
+    <div className="absolute inset-0 min-w-full min-h-full backdrop-blur-xl p-0 m-0 z-50 flex justify-center p-10 overflow-hidden">
       <div
         className={`min-w-1/3 ${isEditProfile ? "h-96" : ""} flex flex-col  gap-6 border border-neutral-400 bg-base-300 rounded-2xl pt-10 px-6 `}
       >
@@ -40,9 +39,6 @@ const Modal = ({
           <p className="text-yellow-300 pb-2">
             Selected File: {selectedAvatarFile.name}
           </p>
-        )}
-        {uploadingAvatarProgress && (
-          <p className="text-green-300">{uploadingAvatarProgress}</p>
         )}
       </div>
     </div>

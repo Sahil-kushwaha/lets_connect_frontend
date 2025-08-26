@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { BASE_URL } from "../utils/constant";
 import { toast } from "react-toastify";
-
 import Modal from "./Modal";
 import { validateAvatar } from "../utils/validator";
+
 const ProfileEdit = ({ userData }) => {
   const [firstName, setFirstName] = useState(userData?.firstName);
   const [lastName, setLastName] = useState(userData?.lastName);
@@ -22,7 +22,6 @@ const ProfileEdit = ({ userData }) => {
   // avatar update related states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAvatarFile, setSelectedAvatarFile] = useState("");
-  const [uploadingAvatarProgress, setUploadingAvatarProgress] = useState("");
   const dispatch = useDispatch();
 
   const handleEdit = () => {
@@ -34,7 +33,6 @@ const ProfileEdit = ({ userData }) => {
   // avatar update related functions
   const handleAvatarClick = () => {
     setIsModalOpen(true);
-    setUploadingAvatarProgress("");
     setSelectedAvatarFile("");
   };
   const handleCloseModal = () => {
@@ -42,12 +40,14 @@ const ProfileEdit = ({ userData }) => {
   };
 
   const handleAvatarSelect = (e) => {
-    if (validateAvatar(e)) {
-      toast.warn("file must be less than 2mb");
+    setSelectedAvatarFile(e.target.files[0]);
+    // validate avatar file size and type
+    if (validateAvatar(e.target.files)) {
+      toast.warn(validateAvatar(e.target.files));
+      setSelectedAvatarFile("");
+      e.target.value = "";
       return;
     }
-    setSelectedAvatarFile(e.target.files[0]);
-    setUploadingAvatarProgress("");
   };
 
   const toastId = useRef();
@@ -69,20 +69,19 @@ const ProfileEdit = ({ userData }) => {
         { withCredentials: true }
       );
       toast.update(toastId.current, {
-        render: "Uploaded Successfully ",
+        render: "Avatar Uploaded Successfully ",
         type: "success",
         autoClose: "3000",
         isLoading: false,
       });
       dispatch(addUser({ ...userData, avatarUrl: res.data.data.avatarUrl }));
       setIsModalOpen(false);
-      toast.success("Avatar Uploaded Successfully");
     } catch (error) {
       setSelectedAvatarFile("");
       console.error(error);
       toast.update(toastId.current, {
         render: error.message,
-        type: "success",
+        type: "error",
         autoClose: "3000",
         isLoading: false,
       });
@@ -143,7 +142,6 @@ const ProfileEdit = ({ userData }) => {
           handleAvatarSelect={handleAvatarSelect}
           handleAvatarSubmit={handleAvatarSubmit}
           selectedAvatarFile={selectedAvatarFile}
-          uploadingAvatarProgress={uploadingAvatarProgress}
         />
       )}
       <ProfileCard
