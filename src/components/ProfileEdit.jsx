@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ProfileCard from "./ProfileCard";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constant";
 import { toast } from "react-toastify";
 
 import Modal from "./Modal";
+import { validateAvatar } from "../utils/validator";
 const ProfileEdit = ({ userData }) => {
   const [firstName, setFirstName] = useState(userData?.firstName);
   const [lastName, setLastName] = useState(userData?.lastName);
@@ -41,17 +42,25 @@ const ProfileEdit = ({ userData }) => {
   };
 
   const handleAvatarSelect = (e) => {
+    if (validateAvatar(e)) {
+      toast.warn("file must be less than 2mb");
+      return;
+    }
     setSelectedAvatarFile(e.target.files[0]);
     setUploadingAvatarProgress("");
   };
 
+  const toastId = useRef();
   const handleAvatarSubmit = async () => {
     try {
       if (!selectedAvatarFile) {
         toast.warn("Please select a file first!");
         return;
       }
-      setUploadingAvatarProgress("Uploading...");
+      toastId.current = toast(
+        <span className="text-blue-500">Uploading...</span>,
+        { type: "info", autoClose: false, isLoading: true }
+      );
       const formData = new FormData();
       formData.append("avatar", selectedAvatarFile);
       const res = await axios.put(
@@ -59,14 +68,24 @@ const ProfileEdit = ({ userData }) => {
         formData,
         { withCredentials: true }
       );
-      setUploadingAvatarProgress("Uploaded Successfully");
+      toast.update(toastId.current, {
+        render: "Uploaded Successfully ",
+        type: "success",
+        autoClose: "3000",
+        isLoading: false,
+      });
       dispatch(addUser({ ...userData, avatarUrl: res.data.data.avatarUrl }));
       setIsModalOpen(false);
       toast.success("Avatar Uploaded Successfully");
     } catch (error) {
       setSelectedAvatarFile("");
       console.error(error);
-      toast.error(error.message);
+      toast.update(toastId.current, {
+        render: error.message,
+        type: "success",
+        autoClose: "3000",
+        isLoading: false,
+      });
     }
   };
 
@@ -139,11 +158,12 @@ const ProfileEdit = ({ userData }) => {
         isEdit={isEditProfile}
         handleEdit={handleEdit}
         handleAvatarClick={handleAvatarClick}
+        className={"max-w-sm sm:max-w-[315px] lg:min-w-lg"}
       />
       {isEditProfile && (
         <>
           <div className="min-w-0.5 bg-radial max-sm:hidden from-5% from-neutral-400  to-neutral-950"></div>
-          <div className="bg-base-300 p-8 rounded-lg shadow-lg w-full   ">
+          <div className="bg-base-300 p-8 rounded-lg shadow-lg sm:min-w-80 lg:w-lg ">
             <h2 className="text-2xl font-medium mb-4">Edit Profile</h2>
             {error && (
               <p className="text-red-500 font-medium font-serif">
