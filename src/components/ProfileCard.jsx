@@ -11,7 +11,7 @@ const ProfileCard = ({
   isEdit,
   handleEdit,
   handleAvatarClick,
-  className
+  className,
 }) => {
   function captalizeFirst(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
