@@ -80,7 +80,7 @@ const ProfileEdit = ({ userData }) => {
       setSelectedAvatarFile("");
       console.error(error);
       toast.update(toastId.current, {
-        render: error.message,
+        render: error.response.data.message,
         type: "error",
         autoClose: "3000",
         isLoading: false,

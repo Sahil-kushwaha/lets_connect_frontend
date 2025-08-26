@@ -98,8 +98,8 @@ function FeedPage() {
   }, []);
 
   return feed.length <= 0 ? (
-    <div className="text-neutral-400 text-xl flex gap-y-2">
-      No New User Found <span className="animate-ping block">🔍</span>
+    <div className="text-neutral-400 text-xl flex justify-center my-5">
+      No New User Found <span className="animate-pulse block">🔍</span>
     </div>
   ) : (
     <div className="flex flex-wrap gap-3 m-4 justify-center items-center relative">
