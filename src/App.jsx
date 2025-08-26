@@ -6,6 +6,8 @@ import FeedPage from "./pages/FeedPage";
 import ProfilePage from "./pages/ProfilePage";
 import ErrorPage from "./pages/ErrorPage";
 import { ToastContainer } from "react-toastify";
+import Connections from "./components/Connections";
+import Requests from "./components/Requests";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SingnUpPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/connections" element={<Connections />} />
+            <Route path="/requests" element={<Requests />} />
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>

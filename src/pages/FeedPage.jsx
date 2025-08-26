@@ -104,7 +104,7 @@ function FeedPage() {
   ) : (
     <div className="flex flex-wrap gap-3 m-4 justify-center items-center relative">
       {feed.map((item) => (
-        <div key={item._id}>  
+        <div key={item._id}>
           <FeedProfileCard
             firstName={item.firstName}
             lastName={item.lastName}
