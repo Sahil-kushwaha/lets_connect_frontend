@@ -1,4 +1,6 @@
 import { UserPen } from "lucide-react";
+import { profileCompletionPercentage } from "../utils/trackProfileCompletion";
+
 const ProfileCard = ({
   firstName,
   lastName,
@@ -13,12 +15,33 @@ const ProfileCard = ({
   handleAvatarClick,
   className,
 }) => {
+  const percent = profileCompletionPercentage([
+    firstName,
+    lastName,
+    email,
+    age,
+    gender,
+    skills,
+    about,
+    avatarUrl,
+  ]);
+
   function captalizeFirst(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
   return (
     <div className={`card bg-base-300  shadow-sm ${className}`}>
+      <div
+        style={{ width: `${percent}%` }}
+        className={`h-1 bg-green-500 ${percent < 65 ? "bg-yellow-300" : ""} relative`}
+      >
+        <p
+          className={`absolute top-1 left-1 text-[12px] text-green-400 ${percent < 65 ? "text-yellow-300" : ""}`}
+        >
+          {percent}%
+        </p>
+      </div>
       <figure className="relative">
         <div className="rounded-[50%] h-34 w-34 border mt-3 overflow-clip">
           <img
