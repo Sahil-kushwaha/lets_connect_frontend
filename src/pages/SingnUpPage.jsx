@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BASE_URL } from "../utils/constant";
-import InputField from "../components/input";
+import InputField from "../components/Input";
 import { validateSignUpData } from "../utils/validator";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
