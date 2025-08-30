@@ -1,22 +1,24 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import FeedProfileCard from "../components/FeedProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed, removeFeed } from "../store/feedSlice";
 import { toast } from "react-toastify";
+import { LoaderCircle } from "lucide-react";
 
 function FeedPage() {
   const dispatch = useDispatch();
   const feed = useSelector((state) => state.feed);
 
-  // const [isLoadeing, setIsLoading] = useState("false");
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchFeeds = async () => {
     if (feed.length > 0) {
       return;
     }
     try {
+      setIsLoading(true);
       const res = await axios.get(BASE_URL + "/api/v1/user/feeds", {
         withCredentials: true,
       });
@@ -26,7 +28,9 @@ function FeedPage() {
         console.log(feed);
         dispatch(addFeed(feed));
       }
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -97,7 +101,11 @@ function FeedPage() {
     fetchFeeds();
   }, []);
 
-  return feed.length <= 0 ? (
+  return isLoading ? (
+    <div className="h-full flex justify-center items-center">
+      <LoaderCircle className="animate-spin my-9" color="blue" />
+    </div>
+  ) : feed.length <= 0 ? (
     <div className="text-neutral-400 text-xl flex justify-center my-5">
       No New User Found <span className="animate-pulse block">🔍</span>
     </div>

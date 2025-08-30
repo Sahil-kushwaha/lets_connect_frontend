@@ -10,6 +10,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoadeing, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -20,6 +21,7 @@ function LoginPage() {
   const handleSubmit = async () => {
     try {
       setError("");
+      setIsLoading(true);
       const res = await axios.post(
         `${BASE_URL}/api/v1/auth/login`,
         {
@@ -32,10 +34,11 @@ function LoginPage() {
       if (res.data?.data) dispatch(addUser(res.data.data));
 
       toast.success("Login Successfully");
-
+      setIsLoading(false);
       navigate("/", { replace: true });
     } catch (error) {
       if (error.response) {
+        setIsLoading(false);
         const message = error.response.data?.message;
         toast.warn(message);
         setError(message);
@@ -116,8 +119,12 @@ function LoginPage() {
             <p className="text-red-500 my-2 text-center">ERROR::{error}</p>
           )}
           <div className="card-actions justify-center">
-            <button className="btn btn-primary" onClick={handleSubmit}>
-              Login
+            <button
+              className="btn btn-primary"
+              onClick={handleSubmit}
+              disabled={isLoadeing}
+            >
+              {isLoadeing ? <span>Loading...</span> : <span>Login</span>}
             </button>
           </div>
           <div>
