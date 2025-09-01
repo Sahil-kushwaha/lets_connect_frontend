@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFeed, removeFeed } from "../store/feedSlice";
 import { toast } from "react-toastify";
 import { LoaderCircle } from "lucide-react";
+import { Navigate } from "react-router-dom";
 
 function FeedPage() {
   const dispatch = useDispatch();
   const feed = useSelector((state) => state.feed);
+  const user = useSelector((state) => state.user);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -101,6 +103,7 @@ function FeedPage() {
     fetchFeeds();
   }, []);
 
+  if (!user) return <Navigate to={"/login"} />;
   return isLoading ? (
     <div className="h-full flex justify-center items-center">
       <LoaderCircle className="animate-spin my-9" color="blue" />
