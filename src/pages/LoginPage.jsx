@@ -10,7 +10,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoadeing, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -122,9 +122,9 @@ function LoginPage() {
             <button
               className="btn btn-primary"
               onClick={handleSubmit}
-              disabled={isLoadeing}
+              disabled={isLoading}
             >
-              {isLoadeing ? <span>Loading...</span> : <span>Login</span>}
+              {isLoading ? <span>Loading...</span> : <span>Login</span>}
             </button>
           </div>
           <div>

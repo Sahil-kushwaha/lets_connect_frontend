@@ -15,6 +15,7 @@ function SingnUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,6 +29,7 @@ function SingnUpPage() {
         );
         return;
       }
+      setIsLoading(true);
       const res = await axios.post(BASE_URL + "/api/v1/auth/signup", {
         firstName,
         lastName,
@@ -37,8 +39,10 @@ function SingnUpPage() {
       dispatch(addUser(res.data.data));
       toast.success("Sing up Successfully");
       setError("");
+      setIsLoading(false);
       navigate("/profile");
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
       setError(error.response.data.message);
     }
@@ -90,8 +94,12 @@ function SingnUpPage() {
         />
 
         <div className="flex justify-center my-5">
-          <button type="submit" className="btn btn-primary">
-            Sign Up
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isLoading}
+          >
+            {isLoading ? <span>Loading...</span> : <span>Sign Up</span>}
           </button>
         </div>
       </form>
