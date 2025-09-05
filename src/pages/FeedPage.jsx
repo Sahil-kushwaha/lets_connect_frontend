@@ -61,7 +61,7 @@ function FeedPage() {
     } catch (error) {
       console.error(error);
       toast.update(toastId.current, {
-        render: error.message,
+        render: error?.response?.data.message,
         type: "error",
         autoClose: 3000,
         isLoading: false,
@@ -80,7 +80,6 @@ function FeedPage() {
         {},
         { withCredentials: true }
       );
-
       dispatch(removeFeed(id));
       toast.update(toastId.current, {
         render: "Done ",
@@ -91,7 +90,7 @@ function FeedPage() {
     } catch (error) {
       console.error(error);
       toast.update(toastId.current, {
-        render: error.message,
+        render: error?.response?.data.message,
         type: "error",
         autoClose: 3000,
         isLoading: false,

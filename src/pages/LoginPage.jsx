@@ -6,11 +6,13 @@ import { addUser } from "../store/userSlice";
 import { BASE_URL } from "../utils/constant";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { EyeClosed, Eye } from "lucide-react";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -46,6 +48,9 @@ function LoginPage() {
     }
   };
 
+  const handleHidePassword = () => {
+    setHidePassword((prev) => !prev);
+  };
   return (
     <div className="flex justify-center items-center p-10">
       <div className="card card-dash  bg-base-300 w-96">
@@ -98,7 +103,7 @@ function LoginPage() {
               </g>
             </svg>
             <input
-              type="password"
+              type={hidePassword ? "password" : "text"}
               value={password}
               required
               placeholder="Password"
@@ -107,6 +112,13 @@ function LoginPage() {
               title="Must be more than 6 characters, including number, lowercase letter, uppercase letter"
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div
+              role="button"
+              onClick={handleHidePassword}
+              className="text-neutral-300 cursor-pointer"
+            >
+              {hidePassword ? <Eye /> : <EyeClosed />}
+            </div>
           </label>
           {/* <p className="validator-hint hidden">
             Must be more than 6 characters, including
