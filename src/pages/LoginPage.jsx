@@ -115,7 +115,7 @@ function LoginPage() {
             <div
               role="button"
               onClick={handleHidePassword}
-              className="text-neutral-300 cursor-pointer"
+              className="text-neutral-500 cursor-pointer hover:text-neutral-300"
             >
               {hidePassword ? <Eye /> : <EyeClosed />}
             </div>
