@@ -153,6 +153,7 @@ const ProfileEdit = ({ userData }) => {
         about={about}
         gender={gender}
         avatarUrl={userData?.avatarUrl}
+        isPremium={userData?.isPremium}
         isEdit={isEditProfile}
         handleEdit={handleEdit}
         handleAvatarClick={handleAvatarClick}

@@ -14,6 +14,7 @@ const ProfileCard = ({
   handleEdit,
   handleAvatarClick,
   className,
+  isPremium,
 }) => {
   const percent = profileCompletionPercentage([
     firstName,
@@ -43,7 +44,9 @@ const ProfileCard = ({
         </p>
       </div>
       <figure className="relative">
-        <div className="rounded-[50%] h-34 w-34 border mt-3 overflow-clip">
+        <div
+          className={`rounded-[50%] h-34 w-34 border mt-3 overflow-clip ${isPremium ? "border-4 border-l-yellow-300 border-t-red-500 border-b-blue-500 border-r-green-500" : ""}`}
+        >
           <img
             src={avatarUrl}
             alt="avatar"

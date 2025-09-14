@@ -17,6 +17,7 @@ function FeedPage() {
 
   const fetchFeeds = async () => {
     if (feed.length > 0) {
+      setIsLoading(false);
       return;
     }
     try {

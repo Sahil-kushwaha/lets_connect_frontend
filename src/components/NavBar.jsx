@@ -55,7 +55,9 @@ const NavBar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar mx-4"
             >
-              <div className="w-10 rounded-full">
+              <div
+                className={`w-10 rounded-full ${user.isPremium ? "border-2 border-l-yellow-300 border-t-red-500 border-b-blue-500 border-r-green-500" : ""}`}
+              >
                 <img
                   alt="profile logo"
                   src={user ? user.avatarUrl : profile_icon}
@@ -79,6 +81,9 @@ const NavBar = () => {
                   </li>
                   <li>
                     <Link to={"/requests"}>Requests</Link>
+                  </li>
+                  <li>
+                    <Link to={"/premium"}>Premium</Link>
                   </li>
                   <li>
                     <div aria-label="logout button" onClick={handleLogout}>
