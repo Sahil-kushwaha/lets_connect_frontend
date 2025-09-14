@@ -56,7 +56,7 @@ const NavBar = () => {
               className="btn btn-ghost btn-circle avatar mx-4"
             >
               <div
-                className={`w-10 rounded-full ${user.isPremium ? "border-2 border-l-yellow-300 border-t-red-500 border-b-blue-500 border-r-green-500" : ""}`}
+                className={`w-10 rounded-full ${user && user.isPremium ? "border-2 border-l-yellow-300 border-t-red-500 border-b-blue-500 border-r-green-500" : ""}`}
               >
                 <img
                   alt="profile logo"
