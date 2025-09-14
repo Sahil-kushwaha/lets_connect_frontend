@@ -16,7 +16,7 @@ import {
 } from "./pages/PolicyPages";
 import ContactUs from "./pages/ContactUs";
 import AboutUs from "./pages/AboutUs";
-import Premium from "./pages/premium";
+import Premium from "./pages/Premium";
 
 function App() {
   return (
