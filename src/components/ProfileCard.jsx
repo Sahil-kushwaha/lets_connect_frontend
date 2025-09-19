@@ -67,30 +67,30 @@ const ProfileCard = ({
         </h2>
         <div className="h-[1px] bg-radial from-10% from-neutral-400  to-neutral-950"></div>
         <p>
-          <span className="text-blue-300">Email :</span>{" "}
+          <span className="text-blue-300">Email :</span>
           <span className="text-neutral-400">{email}</span>
         </p>
         {gender && (
           <p>
-            <span className="text-blue-300">Gender :</span>{" "}
+            <span className="text-blue-300">Gender :</span>
             <span className="text-neutral-400">{gender}</span>
           </p>
         )}
         {age && (
           <p>
-            <span className="text-blue-300">Age :</span>{" "}
+            <span className="text-blue-300">Age :</span>
             <span className="text-neutral-400">{age}</span>
           </p>
         )}
         {about && (
           <p className="">
-            <span className="text-blue-300">About :</span>{" "}
+            <span className="text-blue-300">About :</span>
             <span className="text-neutral-400  break-words">{about}</span>
           </p>
         )}
         {skills && (
           <p>
-            <span className="text-blue-300">Skills :</span>{" "}
+            <span className="text-blue-300">Skills :</span>
             <span className="text-neutral-400">{skills.join(" , ")}</span>
           </p>
         )}

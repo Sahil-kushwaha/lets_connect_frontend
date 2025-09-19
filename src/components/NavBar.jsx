@@ -34,7 +34,7 @@ const NavBar = () => {
     }
   };
   return (
-    <nav className=" sticky top-0 z-50 w-full">
+    <nav className=" sticky top-0 z-50 w-full min-w-fit">
       <div className="navbar bg-base-300 shadow-sm w-full">
         <div className="flex-1">
           <Link to={user ? "/" : "/login"} className="btn btn-ghost text-xl">

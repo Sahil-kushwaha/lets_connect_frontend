@@ -17,6 +17,7 @@ import {
 import ContactUs from "./pages/ContactUs";
 import AboutUs from "./pages/AboutUs";
 import Premium from "./pages/Premium";
+import ChatPage from "./pages/ChatPage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/chat/:toUserId" element={<ChatPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>

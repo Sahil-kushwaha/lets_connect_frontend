@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addConnections } from "../store/connectionsSlice";
 import { LoaderCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -42,8 +43,8 @@ const Connections = () => {
       <LoaderCircle className="animate-spin my-9" color="blue" />
     </div>
   ) : (
-    <div className="flex flex-col items-center">
-      <h1 className="font-semibold text-2xl text-blue-400 gap-6">
+    <div className="flex flex-col items-center  overflow-hidden">
+      <h1 className="font-semibold text-xl  md:text-2xl text-blue-400 gap-6">
         Connections
       </h1>
       <div className="flex gap-3 flex-col  m-6 ">
@@ -55,7 +56,7 @@ const Connections = () => {
           connections.map((connection) => (
             <div
               key={connection._id}
-              className="flex gap-x-6  p-5  bg-base-300 rounded-3xl p-2 shadow shadow-neutral-500"
+              className="flex justify-between gap-x-6  p-5  bg-base-300 rounded-3xl shadow shadow-neutral-500"
             >
               {/* user dp */}
               <div className="self-center-safe">
@@ -67,7 +68,7 @@ const Connections = () => {
                 />
               </div>
               {/* user description */}
-              <div className="text-[12px] lg:text-sm text-neutral-400">
+              <div className="text-[12px] lg:text-sm text-neutral-400 flex-1 ">
                 <p className="text-blue-300">
                   {captalizeFirst(connection.firstName)}&nbsp;
                   {captalizeFirst(connection?.lastName)}
@@ -75,6 +76,14 @@ const Connections = () => {
                 <p>{connection.age}</p>
                 <p>{connection.about}</p>
                 <p>{connection?.skills?.join(", ")}</p>
+              </div>
+              <div role="button" className="self-center">
+                <Link
+                  className="btn bg-green-500 hover:bg-green-700"
+                  to={`/chat/${connection._id}`}
+                >
+                  Chat
+                </Link>
               </div>
             </div>
           ))
