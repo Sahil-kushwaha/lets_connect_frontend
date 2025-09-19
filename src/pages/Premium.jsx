@@ -9,6 +9,7 @@ function Premium() {
   const [planDuration, setPlanDuration] = useState("Monthly");
   const [isPlusLoading, setIsPlusLoading] = useState(false);
   const [isPrimeLoading, setIsPrimeLoading] = useState(false);
+  const [error, setError] = useState("");
   const user = useSelector((state) => state.user);
 
   const price = {
@@ -19,9 +20,13 @@ function Premium() {
 
   const verifyPayment = async (razorRes) => {
     try {
+      console.log(razorRes);
       const paymentDetail = await axios.post(
         BASE_URL + "/api/v1/payment/verify",
-        { paymentId: razorRes.razorpay_payment_id },
+        {
+          paymentId: razorRes.razorpay_payment_id,
+          orderId: razorRes.razorpay_order_id,
+        },
         {
           withCredentials: true,
         }
@@ -34,9 +39,16 @@ function Premium() {
         window.location.reload();
         return;
       }
-      toast.info("Paymet " + data.status);
+
+      toast.info(
+        "Paymet has not been caputred if amount has been deducted please connect to our support team "
+      );
+      setError(
+        "Paymet has not been caputred if an amount has been deducted please connect to our support team "
+      );
     } catch (error) {
       toast.error(error.response.data?.message);
+      setError(error.response.data?.message);
       console.log("Error: " + error);
     }
   };
@@ -109,6 +121,7 @@ function Premium() {
     </div>
   ) : (
     <div className="p-4 md:p-8">
+      <p className="text-xl text-yellow-400 text-center">{error}</p>
       <div className="flex justify-center my-6">
         <div className="bg-neutral-500 p-1 shadow-inner inline-block rounded-full">
           <button
