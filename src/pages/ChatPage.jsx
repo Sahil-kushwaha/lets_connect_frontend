@@ -7,6 +7,7 @@ import { createSocketConnection } from "../utils/socket";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([]);
@@ -28,7 +29,8 @@ const ChatPage = () => {
       const messages = rawMessages.map((message) => {
         const isUser = message.senderId._id === fromUserId;
         const text = message.text;
-        return { isUser, text, time: "" };
+        const time = format(new Date(message.createdAt), "hh:mm a");
+        return { isUser, text, time: time };
       });
       setMessages(messages);
     } catch (error) {
@@ -53,7 +55,6 @@ const ChatPage = () => {
       setMessages((prev) => [...prev, { text: msg.text, isUser: false }]);
     });
     socket.on("connect_error", (error) => {
-      toast.error(error.message);
       console.log(error.message);
     });
 
@@ -80,7 +81,10 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      container: "nearest",
+    });
   }, [messages]);
 
   return (
@@ -99,7 +103,7 @@ const ChatPage = () => {
 
       <form
         onSubmit={handleSendMessage}
-        className="flex p-4 min-w-fit bg-white dark:bg-base-300 border-t border-gray-300 dark:border-gray-200 rounded-2xl"
+        className="flex p-4 mb-9 min-w-fit bg-white dark:bg-base-300 border-t border-gray-300 dark:border-gray-200 rounded-2xl"
       >
         <input
           type="text"

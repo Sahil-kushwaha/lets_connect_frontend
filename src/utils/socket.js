@@ -10,6 +10,7 @@ export const createSocketConnection = () => {
   } else {
     const socket = io("/", {
       path: "/api/socket.io/",
+      transports: ["websocket", "polling"], // use WebSocket first, if available
       withCredentials: true,
     });
     return socket;

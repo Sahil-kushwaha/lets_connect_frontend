@@ -8,7 +8,6 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 import { toast } from "react-toastify";
 const NavBar = () => {
-  console.log("nevrender");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);

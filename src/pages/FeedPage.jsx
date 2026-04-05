@@ -28,7 +28,6 @@ function FeedPage() {
       // feed fetch from backend
       if (res.data?.data) {
         const feed = res.data.data;
-        console.log(feed);
         dispatch(addFeed(feed));
       }
       setIsLoading(false);

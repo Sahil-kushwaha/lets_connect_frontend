@@ -13,23 +13,27 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
-
-  console.log("body render");
   // when home page at / rendered this fun called first
-  const fetchLoggedInUser = async () => {
+  const fetchLoggedInUser = async (abortcontroller) => {
     try {
+      setTimeout(() => {
+        abortcontroller.abort("timeout");
+      }, 5000);
+
       const res = await axios.get(BASE_URL + "/api/v1/profile/view", {
+        signal: abortcontroller.signal,
         withCredentials: true,
       });
-      setLoading(false);
+
       dispatch(addUser(res.data?.data));
+      setLoading(false);
     } catch (error) {
       console.error(error);
       if (error.status === 401) {
         navigate("/login");
       } else {
         navigate("/error-page", {
-          state: { message: error?.message },
+          state: { message: error?.message, status: error?.status },
           replace: true,
         });
       }
@@ -38,7 +42,13 @@ const Body = () => {
   };
 
   useEffect(() => {
-    fetchLoggedInUser();
+    const abortcontroller = new AbortController();
+
+    fetchLoggedInUser(abortcontroller);
+
+    return () => {
+      abortcontroller.abort();
+    };
   }, []);
 
   return isLoading ? (
