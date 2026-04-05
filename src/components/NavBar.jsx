@@ -38,7 +38,7 @@ const NavBar = () => {
         <div className="flex-1">
           <Link to={user ? "/" : "/login"} className="btn btn-ghost text-xl">
             <span className="bg-linear-to-b from-50% from-neutral-200  to-neutral-700 text-transparent bg-clip-text">
-              Let Connect
+              Let'S Connect
             </span>
           </Link>
         </div>

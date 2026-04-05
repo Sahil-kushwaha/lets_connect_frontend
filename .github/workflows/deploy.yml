@@ -44,4 +44,7 @@ jobs:
             npm install
             npm run build
             sudo cp -r ./dist/* /var/www/lets_connect_frontend/
+
+            ===========================================================================
             echo " ✅ build completed, copying files to /var/www/lets_connect_frontend/"
+            ===========================================================================
