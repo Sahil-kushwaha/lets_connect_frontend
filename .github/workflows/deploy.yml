@@ -32,8 +32,16 @@ jobs:
           username: ${{secrets.REMOTE_USER}}
           key: ${{secrets.REMOTE_KEY}}
           script: |
+            set -e
+
+            echo " 📤 exporting NVM_DIR and sourcing nvm.sh"
+            export NVM_DIR="$HOME/.nvm"
+            source $NVM_DIR/nvm.sh
+            echo " ✅ exporting NVM_DIR and sourcing nvm.sh"
+
             cd /home/sahil/lets_connect_frontend
             git pull origin main
             npm install
             npm run build
             sudo cp -r ./dist/* /var/www/lets_connect_frontend/
+            echo " ✅ build completed, copying files to /var/www/lets_connect_frontend/"
