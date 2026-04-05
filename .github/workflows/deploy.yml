@@ -1,0 +1,39 @@
+name: CI/CD Pipeline for Lets Connect Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+      - run: npm run lint
+
+  deploy:
+    needs: lint # 👈 deploy only if lint passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.REMOTE_HOST}}
+          username: ${{secrets.REMOTE_USER}}
+          key: ${{secrets.REMOTE_KEY}}
+          script: |
+            cd /home/sahil/lets_connect_frontend
+            git pull origin main
+            npm install
+            npm run build
+            sudo cp -r ./dist/* /var/www/lets_connect_frontend/
