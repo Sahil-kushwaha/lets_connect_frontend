@@ -16,11 +16,11 @@ export const validateSignUpData = ({ firstName, email, password }) => {
   if (firstName.trim().length < 2) {
     return "First name must be at least 3 characters";
   }
-  const emailPattern = /^[a-zA-Z._%-]+@[a-zA-z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailPattern = /^[\w+%.-]+@[\w^_.-]+\.[a-zA-Z]{2,}$/;
   if (!emailPattern.test(email.trim())) {
     return "Enter valid E-mail Id";
   }
-  if (password.trim().length < 6 && password.length > 10) {
+  if (password.trim().length < 6 || password.length > 10) {
     return "Password must be between 6 and 10 characters long.";
   }
   if (!/[A-Z]/.test(password)) {
